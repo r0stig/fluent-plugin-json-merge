@@ -75,5 +75,15 @@ class JsonMergeTest < Test::Unit::TestCase
 
       assert_equal expected, result
     end
+
+    test 'clobber' do
+      record   = { 'key' => 'value', 'log' => '{ "key": "clobber" }' }
+      expected = { 'key' => 'clobber' }
+
+      d = create_driver('')
+      result = d.instance.filter('tag', 'time', record)
+
+      assert_equal expected, result
+    end
   end
 end
