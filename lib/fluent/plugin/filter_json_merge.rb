@@ -1,15 +1,16 @@
 require 'json'
 
 module Fluent
-  class DockerLogstashFilter < Filter
+  class JsonMergeFilter < Filter
     # Register this filter as "passthru"
-    Fluent::Plugin.register_filter('docker_logstash', self)
+    Fluent::Plugin.register_filter('json_merge', self)
 
-    # config_param works like other plugins
+    config_param :key, :string, :default => 'log'
+    config_param :remove, :bool, :default => true
+
 
     def configure(conf)
       super
-      # do the usual configuration here
     end
 
     def start
@@ -29,14 +30,15 @@ module Fluent
       # It is internal to this class and called by filter_stream unless
       # the user overrides filter_stream.
       #
-      # Since our example is a pass-thru filter, it does nothing and just
-      # returns the record as-is.
-      # If returns nil, that records are ignored.
+      # If returns nil, that record is ignored.
 
-      log = JSON.parse(record["log"])
+      if record.has_key? @key
+        child = JSON.parse(record[@key])
 
-      record.delete("log")
-      record.merge!(log)
+        record.delete(@key) if @remove
+
+        record.merge!(child)
+      end
 
       return record
     end
