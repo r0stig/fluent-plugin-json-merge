@@ -1,6 +1,6 @@
 # fluentd JSON Merge Plugin
 
-This filter plugin is intended to decode JSON in message keys and merge that data into the parent structure. The inital use-case is to decode the 1`log` field produced by the docker fluentd driver.
+This filter plugin is intended to decode JSON in message keys and merge that data into the parent structure. The inital use-case is to decode the `log` field produced by the docker fluentd driver.
 
 # Usage
 
