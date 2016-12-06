@@ -3,6 +3,7 @@
 Gem::Specification.new do |s|
   s.name = "fluent-plugin-json-merge"
   s.version = "1.0"
+  s.author = "ReturnPath"
   s.homepage = "https://github.com/ReturnPath/fluent-plugin-json-merge"
   s.summary = "fluentd plugin to merge a child json string into the main hash"
   s.description = s.summary
