@@ -33,11 +33,15 @@ module Fluent
       # If returns nil, that record is ignored.
 
       if record.has_key? @key
-        child = JSON.parse(record[@key])
+        begin
+          child = JSON.parse(record[@key])
 
-        record.delete(@key) if @remove
+          record.delete(@key) if @remove
 
-        record.merge!(child)
+          record.merge!(child)
+        rescue UnparserError
+          # Do nothing..
+        end
       end
 
       return record
