@@ -39,7 +39,7 @@ module Fluent
           record.delete(@key) if @remove
 
           record.merge!(child)
-        rescue UnparserError
+        rescue JSON::ParserError
           # Do nothing..
         end
       end
